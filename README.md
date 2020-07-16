@@ -1,27 +1,27 @@
-# VERSAO DO NODE
+##### VERSAO DO NODE
 
-12.14.1
+**12.14.1**
 
-# VERSAO DO GULP
+##### VERSAO DO GULP
 
-4.0.2
+**4.0.2**
 
-# Execultando projeto com gulp-cli instalado
+##### Execultando projeto com gulp-cli instalado
 
-npm start
+```npm start```
 
-# Execultando projeto sem o gulp-cli
+##### Execultando projeto sem o gulp-cli
 
-npm run dev
+```npm run dev```
 
-# Limpando arquivos css e js (somente com gulp-cli instalado)
+##### Limpando arquivos css e js (somente com gulp-cli instalado)
 
-npm run clear
+```npm run clear```
 
-# build arquivos sass e js (somente com gulp-cli instalado)
+##### build arquivos sass e js (somente com gulp-cli instalado)
 
-npm run build
+```npm run build```
 
-# assistindo arquivos ja complilados
+##### Assistindo arquivos ja complilados
 
-npm run watch
+```npm run watch```
