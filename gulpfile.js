@@ -1,5 +1,6 @@
 // require dependecies
 const gulp = require('gulp');
+const webp = require('gulp-webp');
 const sass = require('gulp-sass');
 const rename = require('gulp-rename');
 const messager = require('gulp-messenger');
@@ -14,6 +15,7 @@ const path = './arquivos';
 const folderSass = './src/sass/*.scss';
 const folderJs = './src/js/*.js';
 const nameFileOutputJs = 'common-scripts.min.js';
+const folderImage = './src/image/*';
 
 // clean folder
 const clearPathCss = './arquivos/*.css';
@@ -23,6 +25,7 @@ const clearPathJS = './arquivos/*.js';
 const readerFolderSass = './src/sass/**/*.scss';
 const readerFolderHtml = './*.html';
 const readerFolderJS = './src/js/**/*js';
+const readerFolterImages = './src/images/*';
 
 // compile scss into css
 function style() {
@@ -52,6 +55,15 @@ function script() {
 		.pipe(browserSync.stream());
 }
 
+// converte images jpg, png, gif para webp
+function imagesForWebp() {
+	return gulp
+		.src(folderImage)
+		.pipe(webp())
+		.pipe(gulp.dest(path));
+}
+
+
 // Removes files and folders.
 function cleanFiles() {
 	return gulp.src([clearPathJS, clearPathCss], { read: false }).pipe(clean());
@@ -68,15 +80,18 @@ function watch() {
 	gulp.watch(readerFolderSass, style);
 	gulp.watch(readerFolderHtml).on('change', browserSync.reload);
 	gulp.watch(readerFolderJS, script);
+	gulp.watch(readerFolterImages, imagesForWebp);
 }
 
 gulp.task('appCSS', style);
 gulp.task('appJS', script);
+gulp.task('appImages', imagesForWebp);
 gulp.task('watch', watch);
-gulp.task('build', gulp.series('appCSS', 'appJS'));
-gulp.task('default', gulp.series('appCSS', 'appJS', 'watch'));
+gulp.task('build', gulp.series('appCSS', 'appJS', 'appImages'));
+gulp.task('default', gulp.series('appCSS', 'appJS', 'watch', appImages));
 
 exports.script = script;
 exports.style = style;
+exports.imagesForWebp = images;
 exports.watch = watch;
 exports.clear = cleanFiles;
