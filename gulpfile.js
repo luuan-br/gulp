@@ -8,6 +8,7 @@ const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const clean = require('gulp-clean');
+const autoPrefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 
 // config folder
@@ -32,6 +33,9 @@ function style() {
 	return gulp
 		.src(folderSass)
 		.pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+		.pipe(autoPrefixer({
+			cascade: false
+		}))
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(gulp.dest(path))
 		.pipe(messager.flush.info('Process CSS Completed Successfully'))
@@ -88,10 +92,10 @@ gulp.task('appJS', script);
 gulp.task('appImages', imagesForWebp);
 gulp.task('watch', watch);
 gulp.task('build', gulp.series('appCSS', 'appJS', 'appImages'));
-gulp.task('default', gulp.series('appCSS', 'appJS', 'watch', appImages));
+gulp.task('default', gulp.series('appCSS', 'appJS', 'watch', 'appImages'));
 
 exports.script = script;
 exports.style = style;
-exports.imagesForWebp = images;
+exports.imagesForWebp = imagesForWebp;
 exports.watch = watch;
 exports.clear = cleanFiles;
